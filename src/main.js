@@ -1,24 +1,47 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import './style.css';
+
+import { Navigation } from './components/Navigation.js';
+import { Hero } from './components/Hero.js';
+import { About } from './components/About.js';
+import { Courses } from './components/Courses.js';
+import { Gallery } from './components/Gallery.js';
+import { Contact } from './components/Contact.js';
+import { Footer } from './components/Footer.js';
 
 document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+    ${Navigation()}
+    ${Hero()}
+    ${About()}
+    ${Courses()}
+    ${Gallery()}
+    ${Contact()}
+    ${Footer()}
+`;
 
-setupCounter(document.querySelector('#counter'))
+const reveals = document.querySelectorAll(".reveal");
+
+function handleScroll() {
+    reveals.forEach(el => {
+        if(el.getBoundingClientRect().top < window.innerHeight - 100){
+            el.classList.add("active");
+        }
+    });
+}
+window.addEventListener("scroll", handleScroll);
+handleScroll();
+
+const scrollBtn = document.getElementById('btn-scroll');
+if(scrollBtn) {
+    scrollBtn.addEventListener('click', () => {
+        document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+    });
+}
+
+const form = document.getElementById('contact-form');
+if(form) {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert("Заявку відправлено!");
+        form.reset();
+    });
+}
