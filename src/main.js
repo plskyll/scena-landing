@@ -21,7 +21,6 @@ document.querySelector('#app').innerHTML = `
 `;
 
 const reveals = document.querySelectorAll(".reveal");
-
 function handleScroll() {
     reveals.forEach(el => {
         if (el.getBoundingClientRect().top < window.innerHeight - 100) {
@@ -57,10 +56,33 @@ function showNotification(message, type = 'success') {
     }, 4000);
 }
 
+const track = document.getElementById('slider-track');
+const sliderImages = document.querySelectorAll('.slides img');
+const nextBtn = document.getElementById('next-slide');
+const prevBtn = document.getElementById('prev-slide');
+let slideIndex = 0;
+
+function updateSlider() {
+    if (track) {
+        track.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+}
+
+if (nextBtn && prevBtn && sliderImages.length > 0) {
+    nextBtn.addEventListener('click', () => {
+        slideIndex = (slideIndex + 1) % sliderImages.length;
+        updateSlider();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        slideIndex = (slideIndex - 1 + sliderImages.length) % sliderImages.length;
+        updateSlider();
+    });
+}
+
 emailjs.init("_PmMxsV5nDhXBAcYr");
 
 const form = document.getElementById('contact-form');
-
 if (form) {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
