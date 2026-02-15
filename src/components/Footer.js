@@ -1,7 +1,7 @@
 export function Footer() {
     return `
     <footer>
-        © Actor Studio — Івано-Франківськ
+        © Театр Тіней — Івано-Франківськ
     </footer>
   `;
 }
